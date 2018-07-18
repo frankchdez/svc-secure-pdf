@@ -1,15 +1,64 @@
 {
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
-    "version": "2.0.0",	
+    "version": "2.0.0",
 	"type": "shell",	
 	"echoCommand": false,
-	"cwd": "${workspaceFolder}",
+    "cwd": "${workspaceFolder}",
+    "presentation": {
+        "echo": false,
+        "showReuseMessage": false
+    },
     "tasks": [
         {
             "label": "dep-ensure",
             "command": "dep ensure",
             "problemMatcher": [],
+            "group": "build",
+            "presentation": {
+                "reveal": "never"
+            }
+        },
+        {
+            "label": "Build Windows",
+            "command": "go build -o bin/${workspaceFolderBasename}.exe",
+            "problemMatcher":"$go",
+            "group": "build",
+            "options": {
+                "env": {
+                    "GOOS": "windows",
+                    "GOARCH": "amd64"
+                }
+            }
+        },
+        {
+            "label": "Build OSX",
+            "command": "go build -o bin/${workspaceFolderBasename}",
+            "problemMatcher":"$go",
+            "group": "build",
+            "options": {
+                "env": {
+                    "GOOS": "darwin",
+                    "GOARCH": "amd64"
+                }
+            }
+        },
+        {
+            "label": "Build",
+            "dependsOn": [ "Build OSX", "Build Windows" ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Clean",
+            "command": "rm -rf bin/",
+            "windows": {
+                "command": "rd /s /q bin"
+            },
+            "problemMatcher": [],
+            "group": "build",
             "presentation": {
                 "reveal": "never"
             }
