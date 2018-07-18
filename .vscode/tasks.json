@@ -22,7 +22,7 @@
         {
             "label": "Build Windows",
             "command": "go build -o bin/${workspaceFolderBasename}.exe",
-            "problemMatcher":"$go",
+            "problemMatcher": "$go",
             "group": "build",
             "options": {
                 "env": {
@@ -34,7 +34,7 @@
         {
             "label": "Build OSX",
             "command": "go build -o bin/${workspaceFolderBasename}",
-            "problemMatcher":"$go",
+            "problemMatcher": "$go",
             "group": "build",
             "options": {
                 "env": {
@@ -45,7 +45,10 @@
         },
         {
             "label": "Build",
-            "dependsOn": [ "Build OSX", "Build Windows" ],
+            "dependsOn": [
+                "Build OSX",
+                "Build Windows"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
