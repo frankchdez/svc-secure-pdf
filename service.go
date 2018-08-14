@@ -2,6 +2,7 @@ package main
 
 import (
 	"path/filepath"
+	"time"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/hhrutter/pdfcpu/pkg/pdfcpu"
@@ -79,6 +80,7 @@ func (p *program) run() error {
 }
 
 func (p *program) encryptPdf(path string) error {
+	time.Sleep(2 * time.Second)
 	ctx, err := pdfcpu.ReadPDFFile(path, p.pdfConfig)
 	if err != nil {
 		if err.Error() == "encrypt: This file is already encrypted" {
